@@ -1,5 +1,5 @@
 # ssr-popup
 
-Adds a popup window to view the system status report. Then hides the system status report from the chat and appends a button to viiew the system status report in the popup window.
+Adds a popup window to view the system status report and then applies styles to it. The SSR is not removed, only hidden.
 
-[Video demo](https://d.pr/v/IHLcZp)
+[![Screenshot](https://d.pr/Eb2FZY+)](https://d.pr/Eb2FZY)
