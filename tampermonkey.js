@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HappyChat SSR
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.1
 // @description  Hide the SSR in a popup window
 // @author       You
 // @match        https://hud.happychat.io/*
@@ -10,6 +10,12 @@
 // ==/UserScript==
 
 var $ = window.jQuery;
+
+const pushState = history.pushState;
+history.pushState = function () {
+    pushState.apply(history, arguments);
+    waitingforChat();
+};
 
 // Attach the ssr toggle button near the "+1" button
 const ssrToggleBtnInterval = window.setInterval(() => {
@@ -25,7 +31,7 @@ const ssrToggleBtnInterval = window.setInterval(() => {
 
 // Add the popup
 const ssr_popup = `
-<div onclick="$(this).hide()" id="ssr-popup">
+<div onclick="$(this).hide();" id="ssr-popup">
     <div class="content"></br>No SSR</div>
 </div>
 `;
@@ -64,6 +70,7 @@ function waitingforChat () {
 
     if ( sesh != null ) {
         console.log("Loaded")
+        $(" #ssr-popup .content ").html( "No SSR" )
         let chat = document.querySelector(".ReactVirtualized__Grid__innerScrollContainer"),
             options = {
                 childList:true,
@@ -81,7 +88,8 @@ function waitingforChat () {
         }
 }
 
-waitingforChat()
+waitingforChat();
+
 
 // Adding Styles
 const styles = `
